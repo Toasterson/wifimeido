@@ -9,5 +9,5 @@ $(BASE):
 
 .PHONY: all
 all: | $(BASE)
-	cd $(BASE) && $(GO) build -o bin/$(PACKAGE) main.go
+	 GOPATH=$(GOPATH) $(GO) build -o bin/$(PACKAGE) wifimeidod
 
