@@ -1,6 +1,7 @@
 package wifimeido
 
 import (
+	"encoding/json"
 	"log"
 	"net"
 )
@@ -22,8 +23,22 @@ func (self Daemon) echo(c net.Conn) {
 		}
 
 		data := buf[0:nr]
+
 		println("Server got:", string(data))
-		_, err = c.Write(data)
+
+		var req Request
+
+		if err := json.Unmarshal(data, &req); err != nil {
+			panic(err)
+		}
+
+		response := req.handle()
+
+		resp_json, _ := json.Marshal(response)
+
+		log.Print(response)
+
+		_, err = c.Write(resp_json)
 		if err != nil {
 			log.Fatal("Write: ", err)
 		}

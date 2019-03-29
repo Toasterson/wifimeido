@@ -1,6 +1,6 @@
 package main
 
-import "github.com/AlexFence/wifimeido"
+import "github.com/alexfence/wifimeido"
 
 func main() {
 	daemon := wifimeido.NewDaemon("/tmp/wifimeido.sock")
