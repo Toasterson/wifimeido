@@ -1,19 +1,19 @@
-package wifimeidod
+package wifimeido
 
 import (
 	"encoding/json"
 )
 
-type Command string;
+type Command string
 
 const (
-	PING Command = "ping"
-	LIST Command = "ls"
+	PING   Command = "ping"
+	LIST   Command = "ls"
 	SETNET Command = "set-network"
 )
 
 type Request struct {
-	cmd Command
+	cmd   Command
 	param []json.RawMessage
 }
 
@@ -25,7 +25,7 @@ func (r *Request) validateParams() bool {
 		return len(r.param) == 0
 
 	case SETNET:
-		if (len(r.param) == 0) {
+		if len(r.param) == 0 {
 			return true
 		} else {
 			return false

@@ -1,11 +1,19 @@
-package wifimeidod
+package wifimeido
 
 import (
 	"log"
 	"net"
 )
 
-func echoServer(c net.Conn) {
+type Daemon struct {
+	socket string
+}
+
+func NewDaemon(socket string) Daemon {
+	return Daemon{socket}
+}
+
+func (self Daemon) echo(c net.Conn) {
 	for {
 		buf := make([]byte, 512)
 		nr, err := c.Read(buf)
@@ -22,8 +30,8 @@ func echoServer(c net.Conn) {
 	}
 }
 
-func main() {
-	l, err := net.Listen("unix", "/tmp/echo.sock")
+func (self *Daemon) Run() {
+	l, err := net.Listen("unix", self.socket)
 	if err != nil {
 		log.Fatal("listen error:", err)
 	}
@@ -34,6 +42,6 @@ func main() {
 			log.Fatal("accept error:", err)
 		}
 
-		go echoServer(fd)
+		go self.echo(fd)
 	}
 }
