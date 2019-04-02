@@ -8,9 +8,15 @@ import (
 func main() {
 	net := networks.NewRegularNetwork("myNet", "123")
 
-	storage := networks.KeyringStorage{}
+	storage := networks.NewFileStorage("/tmp/net/")
 
 	err := storage.SaveNetwork(net)
 
 	fmt.Println(err)
+
+	var net2 networks.RegularNetwork
+
+	storage.OpenNetwork("myNet", net2)
+
+	fmt.Println(net2.PSK())
 }

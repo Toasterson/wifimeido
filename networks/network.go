@@ -14,8 +14,8 @@ type RegularNetwork struct {
 }
 
 type regularNetworkJSON struct {
-	SSID string `json:"ssid"`
-	PSK  string `json:"psk"`
+	Ssid string `json:"ssid"`
+	Psk  string `json:"psk"`
 }
 
 func NewRegularNetwork(ssid string, psk string) RegularNetwork {
@@ -52,8 +52,8 @@ func (n *RegularNetwork) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	n.ssid = temp.SSID
-	n.psk = temp.PSK
+	n.ssid = temp.Ssid
+	n.psk = temp.Psk
 
 	return nil
 }
